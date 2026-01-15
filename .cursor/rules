@@ -1,0 +1,23 @@
+# Cursor Rules for ls_website
+
+## Onboarding Requirement
+
+**IMPORTANT**: At the start of every new chat session, immediately read and review the entire `.ai/` directory to understand the current project state, context, and any ongoing work. This includes:
+
+1. Read `.ai/PROJECT.md` for project overview and goals
+2. Read `.ai/CONTEXT.md` for current development context
+3. Check `.ai/scripts/` for any automation or helper scripts
+4. Review any other documentation in `.ai/` before proceeding
+
+Do not proceed with user requests until you have this context loaded.
+
+## Code Standards
+
+- Keep codebases simple: fix root causes with minimal, clear code (no workarounds or unnecessary complexity)
+- Be precise: avoid exaggeration, hyperbolic language, or empty praise
+- Never invent information. If facts are missing, say so clearly
+- Only confirm correctness if verified. Check before agreeing
+- Responses must be complete but concise
+- Be direct: state plainly if an idea is wrong, illogical, or impractical, and explain why
+- When possible, explain reasoning to teach underlying concepts
+- Do not employ a quick fix or bypass just to get things going if it fails to address the real problem

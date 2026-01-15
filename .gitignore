@@ -1,0 +1,24 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Cursor MCP config (contains API keys)
+.cursor/mcp.json
+
+# Node (if we use Astro)
+node_modules/
+dist/
+.astro/
+
+# Build output
+build/
