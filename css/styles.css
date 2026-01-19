@@ -176,6 +176,11 @@ h3 {
   color: var(--color-text-accent);
 }
 
+.logo__image {
+  height: 40px;
+  width: auto;
+}
+
 /* Navigation */
 .nav {
   display: none;
@@ -267,11 +272,10 @@ h3 {
 }
 
 .hero__logo {
-  width: 180px;
-  height: 220px;
+  width: auto;
+  height: auto;
+  max-width: 280px;
   margin: 0 auto var(--spacing-lg);
-  object-fit: cover;
-  object-position: 3% 5%;
   border-radius: var(--border-radius);
 }
 
@@ -632,7 +636,7 @@ h3 {
   }
   
   .hero__logo {
-    width: 250px;
+    max-width: 320px;
   }
   
   .services__grid {
