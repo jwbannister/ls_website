@@ -19,18 +19,14 @@ ls_website/
 ├── projects.html           # Projects/portfolio page
 ├── contact.html            # Contact page
 ├── css/
-│   └── styles.css          # All styles (single file is fine for 3 pages)
+│   └── styles.css          # All styles
 ├── js/
-│   └── main.js             # Minimal JS (mobile nav, form handling if needed)
-├── images/
-│   ├── logo-horizontal.png # For header
-│   ├── logo-stacked.png    # For hero/footer
-│   ├── logo-icon.png       # Standalone icon
-│   └── projects/           # Project screenshots
-├── favicon.ico             # Extract from micro icon in logo suite
-├── logo/                   # Original logo assets
-│   └── logos.png
-└── .ai/                    # AI documentation (don't deploy)
+│   └── main.js             # Minimal JS (mobile nav toggle)
+├── logo/
+│   ├── logo_horizontal.png # Header navigation logo
+│   ├── logo_vertical.png   # Hero section logo
+│   └── logo_picture.png    # Icon only (for favicon, etc.)
+└── .ai/                    # AI documentation (excluded from deploy)
 ```
 
 ## Implementation Notes
@@ -101,50 +97,82 @@ More complex, requires AWS setup. Only if user wants full control.
 
 ## Deployment (AWS)
 
-### S3 + CloudFront Setup
-1. Create S3 bucket (website hosting enabled)
-2. Upload all files except `.ai/` and `.git/`
-3. Create CloudFront distribution pointing to S3
-4. Configure custom domain (lunarstaircase.com)
-5. SSL certificate via ACM
+### Infrastructure Overview
 
-### Domain Setup
-- User owns lunarstaircase.com
-- Point DNS to CloudFront
-- Redirect www to apex (or vice versa)
+| Resource | Value |
+|----------|-------|
+| S3 Bucket | `ls-website-prod` |
+| CloudFront Distribution ID | `E2LJTK8QDUV5FR` |
+| CloudFront Domain | `d1naqd9g8n6mi2.cloudfront.net` |
+| ACM Certificate | `arn:aws:acm:us-east-1:293477658025:certificate/a5defcaa-1026-4435-8f4b-1085109fb253` |
+| AWS Profile | `bannisterjw` |
+| Region | `us-east-1` |
 
-*Detailed deployment steps can be added when ready.*
+### Live URLs
 
-## Open Questions Before Building
+- https://lunarstaircase.com
+- https://www.lunarstaircase.com
 
-1. **Project content**: What projects to showcase? Need:
-   - Project names
-   - Descriptions
-   - Screenshots/images
-   - Links (if applicable)
-   - Or: should agent use placeholder content?
+### DNS (Cloudflare)
 
-2. **Contact form**: Which option - Formspree, email only, or AWS Lambda?
+Both `lunarstaircase.com` and `www.lunarstaircase.com` are CNAME records pointing to `d1naqd9g8n6mi2.cloudfront.net` with proxy disabled (DNS only).
 
-3. **Additional content**:
-   - Company tagline?
-   - About text?
-   - Any team info?
-   - Social media links?
+### Deploy Updates
 
-4. **Logo assets**: Need to extract individual PNG/SVG files from `logos.png`:
-   - Horizontal version for header
-   - Stacked version for hero
-   - Icon for favicon
+**1. Sync files to S3:**
+```bash
+aws s3 sync /Users/john/lunarstaircase/ls_website s3://ls-website-prod \
+  --exclude ".git/*" \
+  --exclude ".DS_Store" \
+  --exclude ".ai/*" \
+  --exclude ".cursor/*" \
+  --exclude ".claude/*" \
+  --profile bannisterjw
+```
 
-## Quick Start for Building Agent
+**2. Invalidate CloudFront cache (if needed):**
+```bash
+aws cloudfront create-invalidation \
+  --distribution-id E2LJTK8QDUV5FR \
+  --paths "/*" \
+  --profile bannisterjw
+```
 
-1. Read all files in `.ai/` directory
-2. Review logo suite at `/logo/logos.png`
-3. Get answers to open questions from user
-4. Extract logo variants as separate files
-5. Create file structure
-6. Build Home page first (establish patterns)
-7. Build Projects and Contact pages
-8. Test responsive behavior
-9. Prepare for deployment
+### Architecture
+
+```
+                    ┌─────────────────┐
+                    │   Cloudflare    │
+                    │   (DNS only)    │
+                    └────────┬────────┘
+                             │
+                             ▼
+┌────────────────────────────────────────────────┐
+│              CloudFront (CDN)                  │
+│  - HTTPS termination (ACM certificate)        │
+│  - Caching                                    │
+│  - Gzip compression                           │
+│  - Origin Access Control (OAC)                │
+└────────────────────┬───────────────────────────┘
+                     │
+                     ▼
+          ┌─────────────────────┐
+          │   S3 Bucket         │
+          │   ls-website-prod   │
+          │   (private)         │
+          └─────────────────────┘
+```
+
+### Security Notes
+
+- S3 bucket is **not** publicly accessible
+- CloudFront uses Origin Access Control (OAC) to securely access S3
+- Only CloudFront can read from the bucket (via bucket policy)
+- HTTPS enforced (HTTP redirects to HTTPS)
+- TLS 1.2 minimum
+
+## Remaining Tasks
+
+1. **Project content**: Replace placeholder project cards with real projects when available
+2. **Favicon**: Create favicon from `logo_picture.png`
+3. **OG image**: Create social sharing image for meta tags

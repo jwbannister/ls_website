@@ -1,26 +1,30 @@
 # Current Development Context
 
 ## Last Updated
-2026-01-15
+2026-01-18
 
 ## Current Status
-**Ready to build.** Planning complete, all major decisions made.
+**Live at https://lunarstaircase.com**
 
-## What's Been Decided
+## What's Been Done
 
-| Decision | Choice | Date |
-|----------|--------|------|
+| Item | Status | Date |
+|------|--------|------|
 | Tech stack | Pure static HTML/CSS/JS | 2026-01-15 |
 | Design theme | Dark (navy background) | 2026-01-15 |
-| Logo | Complete suite in `/logo/logos.png` | 2026-01-15 |
-| Pages | Home, Projects, Contact | 2026-01-15 |
-| Hosting | AWS S3 + CloudFront | 2026-01-15 |
+| Pages built | Home, Projects, Contact | 2026-01-18 |
+| Logo variants | Horizontal, vertical, picture | 2026-01-18 |
+| AWS S3 bucket | `ls-website-prod` | 2026-01-18 |
+| CloudFront distribution | `E2LJTK8QDUV5FR` | 2026-01-18 |
+| SSL certificate | ACM (auto-renewing) | 2026-01-18 |
+| Custom domain | lunarstaircase.com + www | 2026-01-18 |
+| DNS | Cloudflare CNAMEs configured | 2026-01-18 |
 
-## What Still Needs User Input
+## What Still Needs Work
 
-1. **Project content** - What specific projects to showcase?
-2. **Contact method** - Formspree form, email display, or AWS Lambda?
-3. **Company copy** - Tagline, about text, any specific messaging?
+1. **Project content** - Currently using placeholder content
+2. **Favicon** - Need to create from `logo_picture.png`
+3. **OG image** - Social sharing image for meta tags
 
 ## Documentation Available
 
@@ -28,23 +32,19 @@
 |------|---------|
 | `PROJECT.md` | Project overview, company info, brand attributes |
 | `DESIGN_SPEC.md` | Colors, typography, components, layout specs |
-| `BUILD_GUIDE.md` | File structure, implementation notes, page content |
+| `BUILD_GUIDE.md` | File structure, implementation notes, **AWS deployment commands** |
 | `CONTEXT.md` | This file - current status and decisions |
 
-## Assets Available
+## Assets
 
-- `/logo/logos.png` - Complete logo suite (stacked, horizontal, icon, micro, one-color, flat)
-
-## Assets Needed
-
-- Individual logo PNGs extracted from suite
-- Favicon (from micro icon)
-- Project screenshots
-- OG image for social sharing
+| File | Usage |
+|------|-------|
+| `/logo/logo_horizontal.png` | Header navigation |
+| `/logo/logo_vertical.png` | Hero section |
+| `/logo/logo_picture.png` | Icon only (for favicon) |
 
 ## For the Next Agent
 
-1. Start by reading all `.ai/` files
-2. Look at the logo suite image
-3. Ask user about open questions (projects, contact form, copy)
-4. Begin building starting with HTML structure
+1. Read all `.ai/` files for context
+2. See `BUILD_GUIDE.md` for deployment commands
+3. Project content is placeholder - update when real projects available

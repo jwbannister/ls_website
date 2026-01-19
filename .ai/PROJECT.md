@@ -7,9 +7,10 @@ Website for **Lunar Staircase**, a software development company.
 | Field | Value |
 |-------|-------|
 | Domain | lunarstaircase.com |
-| Hosting | AWS (S3 + CloudFront) |
+| Live URL | https://lunarstaircase.com |
+| Hosting | AWS S3 + CloudFront |
 | Tech Stack | Pure static HTML/CSS/JS |
-| Status | Ready to build |
+| Status | **Live** |
 
 ## Company Background
 
@@ -26,19 +27,22 @@ Website for **Lunar Staircase**, a software development company.
 - Educational, credible
 - Aspirational but not too serious
 
-## Pages to Build
+## Pages
 
-1. **Home** - Main landing page, company introduction
-2. **Projects** - Portfolio/showcase of work
-3. **Contact** - Contact information and/or form
+1. **Home** (`index.html`) - Main landing page, company introduction
+2. **Projects** (`projects.html`) - Portfolio/showcase of work
+3. **Contact** (`contact.html`) - Contact information (email)
 
 ## Design Direction
 
 - **Dark theme** - Navy background matching logo aesthetic
-- **Logo suite** available in `/logo/logos.png`
+- **Logo files** in `/logo/`:
+  - `logo_horizontal.png` - Used in header navigation
+  - `logo_vertical.png` - Used in hero section
+  - `logo_picture.png` - Moon icon only (for favicon, small displays)
 - See `DESIGN_SPEC.md` for full specifications
 
-## Open Questions (Need User Input)
+## Open Items
 
-1. **Projects content**: Specific projects to feature, or use placeholders?
-2. **Contact method**: Formspree form, just display email, or AWS Lambda backend?
+1. **Projects content**: Currently using placeholder content - update with real projects when available
+2. **Favicon**: Extract from `logo_picture.png` and add to site
